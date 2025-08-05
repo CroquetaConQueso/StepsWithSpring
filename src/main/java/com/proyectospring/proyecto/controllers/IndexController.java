@@ -1,9 +1,14 @@
 package com.proyectospring.proyecto.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.proyectospring.proyecto.models.Usuario;
 
 @Controller
 @RequestMapping("/app") // Cuando se establece esto como anotación de la clase se esta estableciendo que
@@ -26,9 +31,12 @@ public class IndexController {
     // este)
 
     // También se podría hacer GetMapping , el cual es una anotación con
-    // RequestMapping ya en si, si no se puede usr RequestMethod como use con anterioridad
+    // RequestMapping ya en si, si no se puede usr RequestMethod como use con
+    // anterioridad
     @GetMapping(value = { "/index", "/", "/home" })
     public String index(Model model) {
+
+        // Al utilizar Model model , se esta trabajando con el patron MVC
 
         // Esto devuelve el nombre de la vista (index.html) que Spring buscará en
         // src/main/resources/templates usando el motor de plantillas configurado (p.ej.
@@ -45,4 +53,36 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/perfil")
+    public String perfil(Model model) {
+        Usuario usuario = new Usuario();
+        usuario.setNombre("Luis");
+        usuario.setApellido("Gil");
+
+        /*
+         * Acordarse de que en el html, al usar la instancia añadida (en este caso la de
+         * usuario), esta tendra los nombres establecidos en esta y no utilizará los
+         * nombres de los atributos establecidos abajo. Los atributos / claves
+         * establecidas abajo han de ser invocadas o llamadas directamente
+         */
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("nombreUsu", "Nombre: ".concat(usuario.getNombre()));
+        model.addAttribute("apellidoUsu", "Apellido: ".concat(usuario.getApellido()));
+        return "perfil";
+    }
+
+    //Para mostrar una lista 
+
+    @RequestMapping("/listar")
+    public String listar(Model model){
+        List<Usuario> lista = new ArrayList<>();
+
+        lista.add(new Usuario("Luis","Gil"));
+        lista.add(new Usuario("Ana","Yague"));
+        lista.add(new Usuario("Marco","Polo"));
+        
+        model.addAttribute("titulo","Listado de usuarios:");
+        model.addAttribute("usuarios",lista);
+        return "listar";
+    }
 }
