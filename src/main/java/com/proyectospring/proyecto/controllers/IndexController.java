@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyectospring.proyecto.models.Usuario;
@@ -71,18 +72,33 @@ public class IndexController {
         return "perfil";
     }
 
-    //Para mostrar una lista 
+    // Para mostrar una lista
 
     @RequestMapping("/listar")
-    public String listar(Model model){
-        List<Usuario> lista = new ArrayList<>();
+    public String listar(Model model) {
 
-        lista.add(new Usuario("Luis","Gil"));
-        lista.add(new Usuario("Ana","Yague"));
-        lista.add(new Usuario("Marco","Polo"));
-        
-        model.addAttribute("titulo","Listado de usuarios:");
-        model.addAttribute("usuarios",lista);
+        model.addAttribute("titulo", "Listado de usuarios:");
         return "listar";
+    }
+
+    /*
+     * Antes de que Spring llame a cualquier método handler de este controlador
+     * (getMapping, PostMapping,etc..) realiza un paso previo de preparacion. En
+     * este paso busca todos los metodos del controlador que tengan @ModelAttribute y
+     * que NO tengan @RequestMapping, es decir que no sean handlers
+     * 
+     * Luego este atributo pasa a estar presente en el Model de todos los metodos
+     * del controlador incluso si en esos metodos no declaramos Model model
+     */
+    @ModelAttribute("usuarios")
+    public List<Usuario> tomandoUsuarios() {
+        List<Usuario> usuarios = new ArrayList<>();
+
+        usuarios.add(new Usuario("Luis", "Gil"));
+        usuarios.add(new Usuario("Ana", "Yague"));
+        usuarios.add(new Usuario("Marco", "Polo"));
+
+        return usuarios;
+
     }
 }
