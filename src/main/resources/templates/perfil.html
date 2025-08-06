@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Perfil</title>
+    </head>
+    <body>
+        <div>
+            <h1>Perfil</h1>
+            <p>Wawawawa</p>
+            <p>Wiwiwiiwi W wawawa</p>
+            <p th:text="${nombreUsu}"></p>
+            <h3 th:text="${apellidoUsu}"></h3>
+            <span th:text="${usuario.nombre}"></span>
+            <span th:text="${usuario.apellido}"></span>
+            <!--Para establecer un if , simplemente es poner el espacio de nombre junto al keyword if con la condicion que ha de cumplirse-->
+            <span th:if="${usuario.email}" th:text="${usuario.email}"></span>
+            <!--Para establecer una condicion simplemente se compara igual como si fuera en un archivo .java pero hemos de recordar que para establecer un string en el th:text tenemos que poner unas ' ' dentro de las dobles comillas-->
+            <span th:if="${usuario.email == null}" th:text="'El usuario no tiene correo'"></span>
+        </div>
+    </body>
+</html>
