@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Enviar parametros del Request HTTP GET - URL</title>
+  </head>
+  <body>
+    <div>
+      <h1>Enviar parametros del Request HTTP GET - URL</h1>
+      <ul>
+        <li>
+            <!--Se define que valor va a tenr texto, este luego toma el texto y emplea el método param que encontramos en el controlador -->
+            <!--Dentro del elemento a definimos la ruta que se va a tomar y la llamada, es decir estamos usando la sintaxis Thymeleaf-->
+            <!--La @ y {} son para proporcionar o dar parametros a rutas propias del thymeleaf(del proyecto), ya sea controladores y metodos handlers o recursos(imagenes, csss)-->
+            <a th:href="@{/params/string(texto='Hola Pepito')}"
+            >Diga hola a pepito</a>
+            <!-- Arriba, simplemente podemos tener lo que queramos ya que es lo que va a ser lo que el usuario va a ver-->
+        </li>
+        <li>
+          <a th:href="@{/params/string(texto='Hola Carmen')}"
+            >/params/string?texto=Hola Carmen</a
+          >
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

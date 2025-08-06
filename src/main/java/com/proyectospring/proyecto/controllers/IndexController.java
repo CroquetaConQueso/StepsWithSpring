@@ -84,7 +84,7 @@ public class IndexController {
     /*
      * Antes de que Spring llame a cualquier método handler de este controlador
      * (getMapping, PostMapping,etc..) realiza un paso previo de preparacion. En
-     * este paso busca todos los metodos del controlador que tengan @ModelAttibute y
+     * este paso busca todos los metodos del controlador que tengan @ModelAttribute y
      * que NO tengan @RequestMapping, es decir que no sean handlers
      * 
      * Luego este atributo pasa a estar presente en el Model de todos los metodos
