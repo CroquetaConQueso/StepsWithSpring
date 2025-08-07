@@ -3,6 +3,7 @@ package com.proyectospring.proyecto.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyectospring.proyecto.models.Usuario;
-
+import com.proyectospring.proyecto.models.services.IServicio;
+import com.proyectospring.proyecto.models.services.Service;
 
 // La anotación @Controller se utiliza para indicar que esta clase es un controlador
 // en una aplicación Spring MVC. Spring la detecta automáticamente durante el escaneo
@@ -28,9 +30,34 @@ import com.proyectospring.proyecto.models.Usuario;
                         // nivel
 public class IndexController {
 
+    // Para la clase Service vamos a utilizar el paradigma Hollywood el cual se basa
+    // en el que nosotros llamaremos a la clase, esta no nos llamara.
+
+    // Tambien, voy a desaclopar la necesidad de establecer la instanciación ya que
+    // he establecido esta clase como un component por lo que ya es parte del
+    // contenedor.
+    // Por lo que, esta anotacion (AutoWired) significa que este bean esta
+    // registrado en el contenedor y lo busca, inyectandolo.
+
+    // Pero, todavia tenemos un problema. Este método sigue estando acoplado a una
+    // clase por lo que nos limita en el caso de que necesitemos combinar más
+    // logicas , expandir el proyecto , etc.
+    // Para arreglar esto, vamos a terminar asociando Autowired a una interfaz, lo
+    // que nos permitira ser implementada por mas de una clase concreta.
+
+    // Aquí dejo como estaba anteriormente establecido, es decir con la anterior clase
+    // @Autowired
+    // private Service service;
+
+
+    //Y voy a añadir como valor a la interfaz
+    @Autowired
+    private IServicio service;
+
     // Usamos la anotación @Value para inyectar valores definidos en el archivo
     // application.properties, que normalmente se utiliza para almacenar
-    // configuraciones externas como textos, rutas, credenciales o cualquier valor configurable.
+    // configuraciones externas como textos, rutas, credenciales o cualquier valor
+    // configurable.
 
     @Value("${texto.indexcontroller.index.titulo}")
     private String textoIndex;
@@ -62,7 +89,6 @@ public class IndexController {
         // Esto devuelve el nombre de la vista (index.html) que Spring buscará en
         // src/main/resources/templates usando el motor de plantillas configurado (p.ej.
         // Thymeleaf)
-
         model.addAttribute("titulo", textoIndex);
         // Se tiene que tener en cuenta de que cuando se está trabajando con un espacio
         // de nombre se ha de establecer que valores este va a poder leer, ya que los
@@ -71,6 +97,9 @@ public class IndexController {
         // Model es una interfaz mientras que ModelMap es una class, esta implementa
         // .map de java por lo que nos permite utilizar las capacidades de esta interfaz
         // funcional
+
+        // Aqui estamos asociando un valor a el metodo de la clase
+        model.addAttribute("servicio", service.operacion());
         return "index";
     }
 
