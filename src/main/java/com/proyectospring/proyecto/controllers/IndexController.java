@@ -3,6 +3,7 @@ package com.proyectospring.proyecto.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyectospring.proyecto.models.Usuario;
 
+
+// La anotación @Controller se utiliza para indicar que esta clase es un controlador
+// en una aplicación Spring MVC. Spring la detecta automáticamente durante el escaneo
+// de componentes y permite manejar peticiones HTTP, devolviendo vistas (por ejemplo, HTML).
+//
+// A diferencia de @RestController, que devuelve directamente datos (JSON), @Controller
+// se usa junto con tecnologías como Thymeleaf para renderizar páginas web.
+
 @Controller
 @RequestMapping("/app") // Cuando se establece esto como anotación de la clase se esta estableciendo que
                         // esto va a ser una ruta comun para este controlador, proporcionandola a todos
@@ -18,6 +27,17 @@ import com.proyectospring.proyecto.models.Usuario;
                         // nivel mientras que las rutas establecidas en los metodos serían de segundo
                         // nivel
 public class IndexController {
+
+    // Usamos la anotación @Value para inyectar valores definidos en el archivo
+    // application.properties, que normalmente se utiliza para almacenar
+    // configuraciones externas como textos, rutas, credenciales o cualquier valor configurable.
+
+    @Value("${texto.indexcontroller.index.titulo}")
+    private String textoIndex;
+    @Value("${texto.indexcontroller.perfil.titulo}")
+    private String textoPerfil;
+    @Value("${texto.indexcontroller.listar.titulo}")
+    private String textoListar;
 
     // @RequestMapping vincula este método a la URL "/index" (value es un alias de
     // path) y lo asocia al método HTTP GET.
@@ -43,7 +63,7 @@ public class IndexController {
         // src/main/resources/templates usando el motor de plantillas configurado (p.ej.
         // Thymeleaf)
 
-        model.addAttribute("titulo", "LA EMPRESA WAWA");
+        model.addAttribute("titulo", textoIndex);
         // Se tiene que tener en cuenta de que cuando se está trabajando con un espacio
         // de nombre se ha de establecer que valores este va a poder leer, ya que los
         // espacios de nombre no se cargaran si no se establece que tambien toma la raiz
@@ -66,6 +86,7 @@ public class IndexController {
          * nombres de los atributos establecidos abajo. Los atributos / claves
          * establecidas abajo han de ser invocadas o llamadas directamente
          */
+        model.addAttribute("titulo", textoPerfil);
         model.addAttribute("usuario", usuario);
         model.addAttribute("nombreUsu", "Nombre: ".concat(usuario.getNombre()));
         model.addAttribute("apellidoUsu", "Apellido: ".concat(usuario.getApellido()));
@@ -77,14 +98,15 @@ public class IndexController {
     @RequestMapping("/listar")
     public String listar(Model model) {
 
-        model.addAttribute("titulo", "Listado de usuarios:");
+        model.addAttribute("titulo", textoListar);
         return "listar";
     }
 
     /*
      * Antes de que Spring llame a cualquier método handler de este controlador
      * (getMapping, PostMapping,etc..) realiza un paso previo de preparacion. En
-     * este paso busca todos los metodos del controlador que tengan @ModelAttribute y
+     * este paso busca todos los metodos del controlador que tengan @ModelAttribute
+     * y
      * que NO tengan @RequestMapping, es decir que no sean handlers
      * 
      * Luego este atributo pasa a estar presente en el Model de todos los metodos
@@ -101,4 +123,5 @@ public class IndexController {
         return usuarios;
 
     }
+
 }
