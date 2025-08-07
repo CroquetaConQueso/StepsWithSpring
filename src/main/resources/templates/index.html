@@ -3,15 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <title th:text="${titulo}"></title>
+    <!--Cuando se esta vinculando una hoja de estilos, debemos de especificar en link que es una hoja de estilos, el tipo de contenido, y donde en el espacio de nombre se puede encontrar este archivo-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"></link>
   </head>
   <body>
-    <h1 th:text="${titulo}"></h1>
+    <h1 class="color-rojo" th:text="${titulo}"></h1>
     <div
       th:if="${usuarios.isEmpty()}"
       th:text="'No hay usuarios en la lista'"
     ></div>
     <!--th:unless funciona como un if not, si no se puede hacer un th:if="${not ...}" para establecer la negativa, si no tambien se puede usar {!...}. Not solo puede usarse cuando el metodo retorna un booleano-->
     <div th:if="${not usuarios.isEmpty()}" th>
+      <h2 class="color-azul">Mi gata mas bonita</h2>
+      <img th:src="@{/images/Wendy.jpg}"></img>
+      <img th:src="@{/images/Wendy1.jpg}"></img>
       <table>
         <thead>
           <tr>
@@ -20,6 +25,7 @@
           </tr>
         </thead>
         <tbody>
+          <h3 th:text="${titulo}"></h3>
           <!--En th:each siempre usar la sintaxis "variable : ${coleccion}".
               La parte izquierda (variable) es un nombre temporal que existe solo en la iteración.
               La parte derecha (${coleccion}) es el atributo que viene del modelo.
@@ -32,5 +38,7 @@
         </tbody>
       </table>
     </div>
+    <p></p>
+    <div th:text="${servicio}"></div>
   </body>
 </html>
