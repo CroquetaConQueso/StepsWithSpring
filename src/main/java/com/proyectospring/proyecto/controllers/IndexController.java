@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyectospring.proyecto.models.Usuario;
 import com.proyectospring.proyecto.models.services.IServicio;
-import com.proyectospring.proyecto.models.services.Service;
 
 // La anotación @Controller se utiliza para indicar que esta clase es un controlador
 // en una aplicación Spring MVC. Spring la detecta automáticamente durante el escaneo
@@ -22,36 +23,40 @@ import com.proyectospring.proyecto.models.services.Service;
 // A diferencia de @RestController, que devuelve directamente datos (JSON), @Controller
 // se usa junto con tecnologías como Thymeleaf para renderizar páginas web.
 
-@Controller
-@RequestMapping("/app") // Cuando se establece esto como anotación de la clase se esta estableciendo que
-                        // esto va a ser una ruta comun para este controlador, proporcionandola a todos
-                        // los métodos miembros de esta clase. Estableciendo esta como ruta de primer
-                        // nivel mientras que las rutas establecidas en los metodos serían de segundo
-                        // nivel
+// Cuando se establece esto como anotación de la clase se esta estableciendo que
+// esto va a ser una ruta comun para este controlador, proporcionandola a todos
+// los métodos miembros de esta clase. Estableciendo esta como ruta de primer
+// nivel mientras que las rutas establecidas en los metodos serían de segundo
+// nivel
+
+
+@Controller("indexController")
+@RequestMapping("/app")
 public class IndexController {
 
     // Para la clase Service vamos a utilizar el paradigma Hollywood el cual se basa
     // en el que nosotros llamaremos a la clase, esta no nos llamara.
-
+    
     // Tambien, voy a desaclopar la necesidad de establecer la instanciación ya que
     // he establecido esta clase como un component por lo que ya es parte del
     // contenedor.
     // Por lo que, esta anotacion (AutoWired) significa que este bean esta
     // registrado en el contenedor y lo busca, inyectandolo.
-
+    
     // Pero, todavia tenemos un problema. Este método sigue estando acoplado a una
     // clase por lo que nos limita en el caso de que necesitemos combinar más
     // logicas , expandir el proyecto , etc.
     // Para arreglar esto, vamos a terminar asociando Autowired a una interfaz, lo
     // que nos permitira ser implementada por mas de una clase concreta.
-
-    // Aquí dejo como estaba anteriormente establecido, es decir con la anterior clase
+    
+    // Aquí dejo como estaba anteriormente establecido, es decir con la anterior
+    // clase
     // @Autowired
     // private Service service;
 
-
-    //Y voy a añadir como valor a la interfaz
+    // Y voy a añadir como valor a la interfaz
     @Autowired
+    @Qualifier("registrarServicioComplejo")
     private IServicio service;
 
     // Usamos la anotación @Value para inyectar valores definidos en el archivo
@@ -96,7 +101,7 @@ public class IndexController {
 
         // Model es una interfaz mientras que ModelMap es una class, esta implementa
         // .map de java por lo que nos permite utilizar las capacidades de esta interfaz
-        // funcional
+        // funcional (ModelMap es un hashmap)
 
         // Aqui estamos asociando un valor a el metodo de la clase
         model.addAttribute("servicio", service.operacion());

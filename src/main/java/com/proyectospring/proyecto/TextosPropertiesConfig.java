@@ -17,5 +17,5 @@ import org.springframework.context.annotation.PropertySources;
     @PropertySource("classpath:textosPrompts.properties")
 })
 public class TextosPropertiesConfig {
-    
+
 }
