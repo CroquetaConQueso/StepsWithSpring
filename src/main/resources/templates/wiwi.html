@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>La Cosa</title>
+  </head>
+  <body>
+    <div>
+      <h1>HELLOOOOOOOOOOOOOOOOO</h1>
+      <a></a>
+      <h6 th:text="${producto.getName}"></h6>
+      <h6 th:text="${producto.getPrice}"></h6>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre Producto</th>
+            <th>Precio Producto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="productos: ${listillaproducts}">
+            <td th:text="${productos.name}"></td>
+            <td th:text="${productos.price}"></td>
+          </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th>Admin Nombre</th>
+                <th>Admin Fondos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="admins: ${listaadmins}">
+                <td th:text="${admins.name}"></td>
+                <td th:text="${admins.cash}"></td>
+            </tr>
+        </tbody>
+        <h2 th:text="${admin.name}"></h2>
+        <thead>
+          <tr>
+            <th>Usuario Nombre</th>
+            <th>Usuario Apellido</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="usuario: ${admin.lista}">
+            <td th:text="${usuario.nombre}"></td>
+            <td th:text="${usuario.apellido}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

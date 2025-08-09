@@ -1,7 +1,5 @@
 package com.proyectospring.proyecto.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import com.proyectospring.proyecto.models.services.IServicio;

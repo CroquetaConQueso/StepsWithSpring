@@ -1,5 +1,8 @@
 package com.proyectospring.proyecto.models;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Product {
     private String name;
     private double price;
@@ -8,6 +11,8 @@ public class Product {
         this.name = name;
         this.price = price;
     }
+
+    public Product(){}
 
     public String getName(){
         return this.name;
