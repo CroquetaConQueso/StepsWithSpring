@@ -43,6 +43,7 @@ public class SecondController {
 
         producto = new Product("Roca", 3);
         
+        model.addAttribute("factura",factura);
         model.addAttribute("producto",producto);
 
         return "wiwi";

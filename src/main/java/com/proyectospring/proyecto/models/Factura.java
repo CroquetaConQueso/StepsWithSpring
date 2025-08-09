@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +35,7 @@ public class Factura {
     // - Como @Bean → cuando es un recurso compartido entre varios componentes.
 
     @Autowired
+    @Qualifier("devolverFactura")
     private List<ItemFactura> items;
 
     public Factura(String descripcion,Usuario usuario){

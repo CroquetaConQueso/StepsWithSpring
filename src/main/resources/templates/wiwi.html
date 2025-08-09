@@ -24,16 +24,16 @@
           </tr>
         </tbody>
         <thead>
-            <tr>
-                <th>Admin Nombre</th>
-                <th>Admin Fondos</th>
-            </tr>
+          <tr>
+            <th>Admin Nombre</th>
+            <th>Admin Fondos</th>
+          </tr>
         </thead>
         <tbody>
-            <tr th:each="admins: ${listaadmins}">
-                <td th:text="${admins.name}"></td>
-                <td th:text="${admins.cash}"></td>
-            </tr>
+          <tr th:each="admins: ${listaadmins}">
+            <td th:text="${admins.name}"></td>
+            <td th:text="${admins.cash}"></td>
+          </tr>
         </tbody>
         <h2 th:text="${admin.name}"></h2>
         <thead>
@@ -50,26 +50,30 @@
         </tbody>
       </table>
     </div>
-    <div th:if="${devolverFactura.isEmpty()}">
-        <h2>No values are present</h2>
+    <div th:if="${factura.itemFactura.isEmpty()}">
+      <h2>No values are present</h2>
     </div>
-    <div th:if="${!devolverFactura.isEmpty()}">
-        <table>
-            <thead>
-                <tr>
-                    <th>Usuario Nombre y Apellido</th>
-                    <th>Producto Nombre</th>
-                    <th>Producto Precio</th>
-                    <th>Cantidad de Productos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+    <div th:if="${!factura.itemFactura.isEmpty()}">
+      <table>
+        <thead>
+          <tr>
+            <th>Usuario Nombre y Apellido</th>
+            <th>Producto Nombre</th>
+            <th>Producto Precio</th>
+            <th>Cantidad de Productos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="item : ${factura.itemFactura}">
+            <td
+              th:text="${factura.usuario.nombre} + ' ' + ${factura.usuario.apellido}"
+            ></td>
+            <td th:text="${item.producto.name}"></td>
+            <td th:text="${item.producto.price}"></td>
+            <td th:text="${item.cantidad}"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </body>
 </html>
