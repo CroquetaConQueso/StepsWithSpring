@@ -2,22 +2,28 @@ package com.proyectospring.proyecto.controllers;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyectospring.proyecto.models.Admin;
+import com.proyectospring.proyecto.models.Factura;
 import com.proyectospring.proyecto.models.Product;
 import com.proyectospring.proyecto.models.Usuario;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
 @RequestMapping
 public class SecondController {
 
+    @Autowired
+    private Factura factura;
     private Product producto;
     private Admin admin;
 
@@ -43,6 +49,15 @@ public class SecondController {
         return "wiwi";
     }
 
+    @GetMapping("/factura")
+    public String ver(Model model) {
+
+        model.addAttribute("factura",factura);
+        model.addAttribute("titulo","Ejemplo Factura con inyección de dependencias");
+
+        return "factura";
+    }
+    
     @ModelAttribute("admin")
     public Admin mainAdmin(){
         admin = new Admin("Carlos", 4000);
