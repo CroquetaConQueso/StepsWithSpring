@@ -10,7 +10,7 @@
       <a></a>
       <h6 th:text="${producto.getName}"></h6>
       <h6 th:text="${producto.getPrice}"></h6>
-      <table>
+      <table th:if="${!istillaproducts.isEmpty()}">
         <thead>
           <tr>
             <th>Nombre Producto</th>
@@ -49,6 +49,27 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div th:if="${devolverFactura.isEmpty()}">
+        <h2>No values are present</h2>
+    </div>
+    <div th:if="${!devolverFactura.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuario Nombre y Apellido</th>
+                    <th>Producto Nombre</th>
+                    <th>Producto Precio</th>
+                    <th>Cantidad de Productos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
   </body>
 </html>

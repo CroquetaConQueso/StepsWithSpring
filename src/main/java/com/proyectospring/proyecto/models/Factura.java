@@ -1,5 +1,6 @@
 package com.proyectospring.proyecto.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class Factura {
     public Factura(String descripcion,Usuario usuario){
         this.descripcion = descripcion;
         this.usuario = usuario;
+        this.items = new ArrayList<>();
     }
 
     public Factura(){}
